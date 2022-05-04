@@ -17,10 +17,10 @@ if (!empty($_SESSION['email_usuario'])) {
 
         require "../BBDD/conexion.php";
 
-        $last_insert_query = "SELECT LAST_INSERT_ID() FROM tbl_actividad;";
+        $last_insert_query = "SELECT MAX(id) FROM tbl_actividad;";
         $last_insert_request = mysqli_query($conexion, $last_insert_query);
         $last_insert_array = mysqli_fetch_array($last_insert_request);
-        $last_insert_id = $last_insert_array['LAST_INSERT_ID()'];
+        $last_insert_id = $last_insert_array['MAX(id)'] +1;
 
         $id_usuario_autor = $_SESSION['id_usuario'];
 
