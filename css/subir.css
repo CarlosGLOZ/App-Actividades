@@ -1,0 +1,21 @@
+.cabecera {
+  background-color: red;
+}
+body {
+  position: relative;
+}
+.formularios {
+  display: flex;
+  justify-content: center;
+  padding-left: 3%;
+  width: 100%;
+  position: absolute;
+  top: 110%;
+  background-color: aqua;
+}
+.caja {
+  width: 100%;
+  background-color: pink;
+  position: absolute;
+  top: 150%;
+}
