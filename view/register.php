@@ -13,7 +13,14 @@
 </div>
 <div class="padre">
     <div class="box">
-    <h2 id='NoError'>Por favor, ingresa tus datos</h2>
+        <?php
+        if (isset($_GET['validation']) && $_GET['validation']=='false') {
+            echo " <h2 id='error'>Correo en uso</h2>";
+        }else{
+            echo "<h2 id='NoError'>Por favor, ingresa tus datos</h2>";
+        }
+        ?>
+   
     <form action="../proc/validate_register.php" method="post">
         <br>
         <label for="username">Usuario</label><br>

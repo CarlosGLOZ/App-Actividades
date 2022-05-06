@@ -35,7 +35,7 @@ if (!empty($_SESSION['email_usuario'])) {
             
             if ($exito) {
                 
-                $act_insert_query = "INSERT INTO tbl_actividad (nombre_act, desc_act, foto_act, tema_act, fecha_public_act, visibilidad_act, link_act, autor_act) VALUES ('$nombre_actividad', '$desc_actividad', '$destinoLocal', '$tema_actividad', curdate(), '$visibilidad_actividad', 'http://localhost/www/M4-Lenguaje%20de%20Marcas/App-Actividades/view/actividad?act={$last_insert_id}', '$id_usuario_autor');";
+                $act_insert_query = "INSERT INTO tbl_actividad (nombre_act, desc_act, foto_act, tema_act, fecha_public_act, visibilidad_act, link_act, autor_act, favs_act) VALUES ('$nombre_actividad', '$desc_actividad', '$destinoLocal', '$tema_actividad', NOW(), '$visibilidad_actividad', 'http://localhost/www/M4-Lenguaje%20de%20Marcas/App-Actividades/view/actividad.php?act={$last_insert_id}', '$id_usuario_autor', 0);";
                 $act_insert_request = mysqli_query($conexion, $act_insert_query);
 
                 if ($act_insert_request) {

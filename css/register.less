@@ -73,6 +73,36 @@ body{
 
         // Usamos el position relatie o absolute para indicar que será el objeto padre
         position:relative;
+
+
+
+        #NoError{
+            font-family: Arial;
+            font-size: 18px;
+            text-align: center;
+            color: #3f1850;
+            position:absolute;
+            top:2%;
+            border-bottom: 1px solid #3f1850 ;
+            padding-bottom: 3px;
+            }
+         #error{
+            font-family: Arial;
+            font-size: 18px;
+            text-align: center;
+            color: rgb(217, 9, 9);
+              // underline (como no puedes usar los atributos text-underline-position: under; and text-decoration-skip: ink para text-decoration underline por que no es soportado por los navegadores usamos un el border-botton:)
+              border-bottom: 1px solid #3f1850 ;
+              padding-bottom: 3px;
+              
+  
+              // This works because position: absolute means something like "use top, right, bottom, left to position yourself in relation to the nearest ancestor who has position: absolute or position: relative."
+              // So we make #father have position: relative, and the children have position: absolute, then use top and bottom to position the children. 
+              // Si no ponemos el position relative al padre cojera como padre el body y la posicón que se establezca no sera la que buscamos
+              position:absolute;
+              top:2%;
+            }
+
         h2{
             font-family: Arial;
             font-size: 18px;

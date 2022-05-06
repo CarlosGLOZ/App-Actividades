@@ -110,7 +110,7 @@ i {
     height: 15vw;
 }
 
-img{
+img {
     object-fit: cover;
     width: 100%;
 }
@@ -143,7 +143,13 @@ img{
     border-radius: 0;
 }
 
+.top-5-act:hover {
+    cursor: pointer;
+}
+
+
 /* Responsive: 800px */
+
 @media only screen and (max-width: 800px) {
     /*reglas*/
     header {
@@ -181,7 +187,6 @@ img{
     .padding-mobile {
         padding: 1% 2% 1% 2%;
     }
-
     .padding-right {
         padding-right: 2%;
     }
@@ -192,6 +197,7 @@ img{
         padding: 0;
     }
 }
+
 
 /* Responsive móbil: 400px*/
 

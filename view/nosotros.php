@@ -20,83 +20,167 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html">#AppName</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarScroll">
-                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vh;">
-                    <li class="nav-item">
-                        <a class="nav-link active disabled" aria-current="page" href="#">Sobre nosotros</a>
-                    </li>
+    <!-- SI EL USUARIO NO ESTÁ LOGEADO -->
+    <?php
+        session_start();
+        if (!isset($_SESSION['email_usuario'])) {
+            
+    ?>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html">#AppName</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vh;">
+                        <li class="nav-item">
+                            <a class="nav-link active disabled" aria-current="page" href="#">Sobre nosotros</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="./actividades.php">Actividades</a>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-                    <button class="btn btn-light form-control me-1" type="button" onclick="window.location.href = './login.php'"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
-                    <button class="btn btn-light form-control ms-1" type="button" onclick="window.location.href = './login.php'">Acceder</button>
-                </form>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./actividades.php">Actividades</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+                        <button class="btn btn-light form-control me-1" type="button" onclick="window.location.href = './login.php'"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+                        <button class="btn btn-light form-control ms-1" type="button" onclick="window.location.href = './login.php'">Acceder</button>
+                    </form>
+                </div>
+        </div>
+        </nav>
+        <!-- Topics -->
+
+        <div class="row-c padding-m">
+            <div class="column-66 padding-m padding-right">
+                <h5>Topics</h5>
+                <button type="button" class="btn btn-primary mt-1">matemáticas</button>
+                <button type="button" class="btn btn-info mt-1">informática</button>
+                <button type="button" class="btn btn-dark mt-1">...</button>
             </div>
         </div>
-    </nav>
-    <!-- Topics -->
 
-    <div class="row-c padding-m">
-        <div class="column-66 padding-m padding-right">
-            <h5>Topics</h5>
-            <button type="button" class="btn btn-primary mt-1">matemáticas</button>
-            <button type="button" class="btn btn-info mt-1">informática</button>
-            <button type="button" class="btn btn-dark mt-1">...</button>
-        </div>
-    </div>
-
-    <!-- Intro -->
-    <header class="text-white flex padding-l">
-        <h1><strong>#AppName</strong></h1>
-    </header>
-    <div class="row-c padding-m">
-        <div class="column-1 padding-m">
-            <h5>Navega</h5>
-        </div>
-        <div class="column-66 padding-m padding-right">
-            <!-- <h2><strong>#AppName</strong> es un club para explorar, desarrollar y compartir nuestra creatividad natural</h2> -->
-            <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore, corporis ipsa. Non, exercitationem!
-                Vel enim exercitationem dolores, incidunt, molestias praesentium magnam cumque nostrum aperiam ducimus
-                tempore? Fugit placeat debitis asperiores.</h4>
-        </div>
-    </div>
-
-    <!-- Random de actividades -->
-
-    <div class="row-c padding-m">
-        <div class="column-1 padding-m">
-            <h5>Subidas recientemente</h5>
-        </div>
-
-        <div class="column-1 padding-s">
-
-            <div class="column-4 padding-s">
-                <img src="../img/kelly-sikkema-TS6FasMlQWs-unsplash.jpg" alt="" class="target-s">
+        <!-- Intro -->
+        <header class="text-white flex padding-l">
+            <h1><strong>#AppName</strong></h1>
+        </header>
+        <div class="row-c padding-m">
+            <div class="column-1 padding-m">
+                <h5>Navega</h5>
             </div>
-            <div class="column-4 padding-s">
-                <img src="../img/etienne-girardet-j2Soo4TfFMk-unsplash.jpg" alt="" class="target-s">
-            </div>
-
-            <div class="column-4 padding-s">
-                <img src="../img/nick-fewings-EkyuhD7uwSM-unsplash.jpg" alt="" class="target-s">
-            </div>
-            <div class="column-4 padding-s">
-                <img src="../img/keila-hotzel-lFmuWU0tv4M-unsplash.jpg" alt="" class="target-s">
+            <div class="column-66 padding-m padding-right">
+                <!-- <h2><strong>#AppName</strong> es un club para explorar, desarrollar y compartir nuestra creatividad natural</h2> -->
+                <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore, corporis ipsa. Non, exercitationem!
+                    Vel enim exercitationem dolores, incidunt, molestias praesentium magnam cumque nostrum aperiam ducimus
+                    tempore? Fugit placeat debitis asperiores.</h4>
             </div>
         </div>
-    </div>
 
+        <!-- Random de actividades -->
+
+        <div class="row-c padding-m">
+            <div class="column-1 padding-m">
+                <h5>Subidas recientemente</h5>
+            </div>
+
+            <div class="column-1 padding-s">
+
+                <div class="column-4 padding-s">
+                    <img src="../img/kelly-sikkema-TS6FasMlQWs-unsplash.jpg" alt="" class="target-s">
+                </div>
+                <div class="column-4 padding-s">
+                    <img src="../img/etienne-girardet-j2Soo4TfFMk-unsplash.jpg" alt="" class="target-s">
+                </div>
+
+                <div class="column-4 padding-s">
+                    <img src="../img/nick-fewings-EkyuhD7uwSM-unsplash.jpg" alt="" class="target-s">
+                </div>
+                <div class="column-4 padding-s">
+                    <img src="../img/keila-hotzel-lFmuWU0tv4M-unsplash.jpg" alt="" class="target-s">
+                </div>
+            </div>
+        </div>
+    <!-- SI EL USUARIO ESTÁ LOGEADO -->
+    <?php } else {?>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html">#AppName</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vh;">
+                        <li class="nav-item">
+                            <a class="nav-link active disabled" aria-current="page" href="#">Sobre nosotros</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="./actividades.php">Actividades</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+                        <button class="btn btn-light form-control me-1" type="button" onclick="window.location.href = './subir_actividad.php'"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+                        <button class="btn btn-light form-control ms-1" type="button" onclick="window.location.href = './mis_actividades.php?author=<?php echo $_SESSION['id_usuario']; ?>'"> <?php echo $_SESSION['nombre_usuario']; ?> </button>
+                        <button class="btn btn-light form-control ms-1" type="button" onclick="window.location.href = '../proc/logout.php'">LogOut</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- Topics -->
+
+        <div class="row-c padding-m">
+            <div class="column-66 padding-m padding-right">
+                <h5>Topics</h5>
+                <button type="button" class="btn btn-primary mt-1">matemáticas</button>
+                <button type="button" class="btn btn-info mt-1">informática</button>
+                <button type="button" class="btn btn-dark mt-1">...</button>
+            </div>
+        </div>
+
+        <!-- Intro -->
+        <header class="text-white flex padding-l">
+            <h1><strong>#AppName</strong></h1>
+        </header>
+        <div class="row-c padding-m">
+            <div class="column-1 padding-m">
+                <h5>Navega</h5>
+            </div>
+            <div class="column-66 padding-m padding-right">
+                <!-- <h2><strong>#AppName</strong> es un club para explorar, desarrollar y compartir nuestra creatividad natural</h2> -->
+                <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore, corporis ipsa. Non, exercitationem!
+                    Vel enim exercitationem dolores, incidunt, molestias praesentium magnam cumque nostrum aperiam ducimus
+                    tempore? Fugit placeat debitis asperiores.</h4>
+            </div>
+        </div>
+
+        <!-- Random de actividades -->
+
+        <div class="row-c padding-m">
+            <div class="column-1 padding-m">
+                <h5>Subidas recientemente</h5>
+            </div>
+
+            <div class="column-1 padding-s">
+
+                <div class="column-4 padding-s">
+                    <img src="../img/kelly-sikkema-TS6FasMlQWs-unsplash.jpg" alt="" class="target-s">
+                </div>
+                <div class="column-4 padding-s">
+                    <img src="../img/etienne-girardet-j2Soo4TfFMk-unsplash.jpg" alt="" class="target-s">
+                </div>
+
+                <div class="column-4 padding-s">
+                    <img src="../img/nick-fewings-EkyuhD7uwSM-unsplash.jpg" alt="" class="target-s">
+                </div>
+                <div class="column-4 padding-s">
+                    <img src="../img/keila-hotzel-lFmuWU0tv4M-unsplash.jpg" alt="" class="target-s">
+                </div>
+            </div>
+        </div>
+    <?php }?>
 </body>
 
 </html>

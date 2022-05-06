@@ -54,6 +54,26 @@ body {
   justify-content: center;
   position: relative;
 }
+.padre .box #NoError {
+  font-family: Arial;
+  font-size: 18px;
+  text-align: center;
+  color: #3f1850;
+  position: absolute;
+  top: 2%;
+  border-bottom: 1px solid #3f1850;
+  padding-bottom: 3px;
+}
+.padre .box #error {
+  font-family: Arial;
+  font-size: 18px;
+  text-align: center;
+  color: #d90909;
+  border-bottom: 1px solid #3f1850;
+  padding-bottom: 3px;
+  position: absolute;
+  top: 2%;
+}
 .padre .box h2 {
   font-family: Arial;
   font-size: 18px;
