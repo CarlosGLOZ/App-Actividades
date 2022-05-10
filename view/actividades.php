@@ -13,6 +13,9 @@
     <script src="https://kit.fontawesome.com/e0b63cee0f.js" crossorigin="anonymous"></script>
     <!-- Hoja de estilos -->
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/actividades.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../js/likeActivity.js"></script>
 
 </head>
 
@@ -22,7 +25,12 @@
     <?php
         // recogida de las actividades a mostrar
         require "../BBDD/conexion.php";
-        $act_query_byFav = "SELECT * FROM tbl_actividad ORDER BY favs_act DESC LIMIT 5;";
+        if (isset($_GET['tema_actividad'])) {
+            $filtro = $_GET['tema_actividad'];
+            $act_query_byFav = "SELECT * FROM tbl_actividad WHERE tema_act = '{$filtro}' ORDER BY favs_act DESC LIMIT 5;";
+        } else {
+            $act_query_byFav = "SELECT * FROM tbl_actividad ORDER BY favs_act DESC LIMIT 5;";
+        }
         $act_request_byFav = mysqli_query($conexion, $act_query_byFav);
 
         // comprovación de inicio de sesión del usuario
@@ -87,6 +95,14 @@
                 <h4 class="padding-m">Explora</h4>
             </div>
 
+            <form method="get">
+                <select name="tema_actividad">
+                    <option value="matematicas">Matemáticas</option>
+                    <option value="informatica">Informática</option>
+                </select>
+                <input type="submit" value="Filtrar">
+            </form>
+
             <?php 
                 $act_query_byDate = "SELECT * FROM tbl_actividad ORDER BY fecha_public_act DESC LIMIT 6;";
                 $act_request_byDate = mysqli_query($conexion, $act_query_byDate);
@@ -107,8 +123,8 @@
                     echo "      <p>".$author['nombre_usuario']."<p>";
                     echo "  </div>";
                     echo "  <div style='float: right;' class='padding-m'>";
-                    echo "      <button class='btn btn-light m-1' type='submit'><i class='fa-solid fa-link'></i></button>";
-                    echo "      <button class='btn btn-light m-1' type='submit'><i class='fa-solid fa-heart'></i></button>";
+                    echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"".$actividad['link_act']."\");'><i class='fa-solid fa-link' id='".$actividad['id']."'></i></button>";
+                    echo "      <button class='btn btn-light m-1' type='submit' onClick='window.location.href = \"./login.php\";'><i class='fa-solid fa-heart'></i></button>";
                     echo "  </div>";
                     echo "</div>";
                 }
@@ -178,8 +194,21 @@
                 <h4 class="padding-m">Explora</h4>
             </div>
 
+            <form method="get">
+                <select name="tema_actividad">
+                    <option value="matematicas">Matemáticas</option>
+                    <option value="informatica">Informática</option>
+                </select>
+                <input type="submit" value="Filtrar">
+            </form>
+
             <?php 
-                $act_query_byDate = "SELECT * FROM tbl_actividad ORDER BY fecha_public_act DESC LIMIT 6;";
+                if (isset($_GET['tema_actividad'])) {
+                    $filtro = $_GET['tema_actividad'];
+                    $act_query_byDate = "SELECT * FROM tbl_actividad WHERE tema_act = '{$filtro}' ORDER BY fecha_public_act DESC LIMIT 6;";
+                } else {
+                    $act_query_byDate = "SELECT * FROM tbl_actividad ORDER BY fecha_public_act DESC;";
+                }
                 $act_request_byDate = mysqli_query($conexion, $act_query_byDate);
 
                 foreach ($act_request_byDate as $actividad) {
@@ -187,20 +216,22 @@
                     $ruta = "../img/actividades/".$nombreArchivo;
                     $act_link = "./actividad.php?act=".$actividad['id'];
 
-                    $auth_query = "SELECT * FROM tbl_usuario WHERE id=".$actividad['autor_act'];
+                    $auth_query = "SELECT * FROM tbl_usuario WHERE id=".$actividad['autor_act'].";";
                     $auth_request = mysqli_query($conexion, $auth_query);
                     $author = mysqli_fetch_array($auth_request);
 
-                    echo "<div class='column-3 padding-mobile'>";
+                    $likes_query = "SELECT count(id) as 'likes' FROM tbl_actividad_gustada WHERE id_actividad=".$actividad['id'].";";
+                    $likes_request = mysqli_query($conexion, $likes_query);
+                    $likes_actividad = mysqli_fetch_array($likes_request)['likes'];
+
+                    echo "<div class='column-3 padding-mobile displayer'>";
                     echo "  <h5>".$actividad['nombre_act']."</h5>";
                     echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";'>";
-                    echo "  <div style='float: left;' class='padding-m'>";
+                    echo "  <div  style='float: left;' class='padding-m like'>";
                     echo "      <p>".$author['nombre_usuario']."</p>";
-                    echo "  </div>";
-                    echo "  <div style='float: right;' class='padding-m'>";
                     echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"".$actividad['link_act']."\");'><i class='fa-solid fa-link'></i></button>";
-                    echo "      <button class='btn btn-light m-1' type='submit'><i class='fa-solid fa-heart'></i></button>";
-                    echo "  </div>";
+                    echo "      <button class='btn btn-light m-1' type='submit' onClick='like(".$actividad['id'].", ".$_SESSION['id_usuario'].")' id='act-".$actividad['id']."-like-bttn'>$likes_actividad<i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";
+                    echo "  </div>";    
                     echo "</div>";
                 }
             

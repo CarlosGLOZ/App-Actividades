@@ -1,16 +1,55 @@
 .cabecera {
-  background-color: red;
+  padding-top: 1%;
+  padding-left: 5%;
+}
+.cabecera a {
+  text-decoration: none;
 }
 body {
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 .formularios {
   width: 100%;
-  background-color: aqua;
   display: flex;
   justify-content: center;
-  position: absolute;
-  top: 110%;
+  position: fixed;
+  top: 25%;
+}
+.formularios form {
+  display: flex;
+  width: 100%;
+  height: 27px;
+  justify-content: center;
+}
+.formularios form input {
+  margin-right: 3%;
+  margin-left: 3%;
+  border: 0;
+  border-bottom: 2px solid grey;
+  outline: 0;
+}
+.formularios form select {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding-left: 1%;
+  color: gray;
+  width: 140px;
+}
+.formularios form select option {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+}
+.formularios form label {
+  margin-right: 3%;
+}
+.formularios form #checkbox {
+  margin-right: 0%;
+}
+.formularios form button {
+  background-color: #ffff;
+  border: 0px;
 }
 .box__dragndrop,
 .box__uploading,
@@ -19,10 +58,13 @@ body {
   display: none;
 }
 .box {
+  width: 1350px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 220%;
 }
 .box.has-advanced-upload {
   background-color: white;

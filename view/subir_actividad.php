@@ -32,7 +32,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link active disabled" aria-current="page" href="./actividades.html">Actividades</a>
+                            <a class="nav-link active" aria-current="page" href="./actividades.php">Actividades</a>
                         </li>
                     </ul>
                     <form class="d-flex">
@@ -49,13 +49,16 @@
         <!-- Cabecera con iconos de la ubicación en la web -->
  <div class="cabecera">
 
+
+ <!-- ICONO PERSONA -> USUARIO -> POSICON DE LA WEB -->
+
 <svg xmlns="http://www.w3.org/2000/svg" width="387.5" height="68.515" viewBox="0 0 687.5 108.515">
 <text id="Subir_actividad" data-name="Subir actividad" transform="translate(426.5 97.5)" font-size="40" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Subir actividad</tspan></text>
 <g id="Icon_feather-user" data-name="Icon feather-user" transform="translate(-4.5 -3)">
     <path id="Trazado_8" data-name="Trazado 8" d="M98.9,57.338V45.726A23.226,23.226,0,0,0,75.677,22.5H29.226A23.226,23.226,0,0,0,6,45.726V57.338" transform="translate(0 52.677)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
     <path id="Trazado_9" data-name="Trazado 9" d="M58.451,27.726A23.226,23.226,0,1,1,35.226,4.5,23.226,23.226,0,0,1,58.451,27.726Z" transform="translate(17.226)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
 </g>
-<text id="Username" transform="translate(155.5 97.5)" font-size="40" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0"><?php echo $_SESSION['nombre_usuario']; ?></tspan></text>
+<text id="Username" transform="translate(155.5 97.5)" font-size="40" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0" ><?php echo "<a href='mis_actividades.php?author={$_SESSION['id_usuario']}'>{$_SESSION['nombre_usuario']}<a/>"; ?></tspan></text>
 <path id="Icon_awesome-long-arrow-alt-right" data-name="Icon awesome-long-arrow-alt-right" d="M22.074,15.188H.844A.844.844,0,0,0,0,16.031v3.938a.844.844,0,0,0,.844.844h21.23v3.239a1.688,1.688,0,0,0,2.881,1.193l6.051-6.051a1.687,1.687,0,0,0,0-2.386l-6.051-6.051a1.688,1.688,0,0,0-2.881,1.193Z" transform="translate(367.5 70.742)"/>
 </svg>
 
@@ -74,7 +77,7 @@
             <option value="informatica">Informática</option>
         </select>
   
-        <input type="checkbox" name="visibilidad_actividad">
+        <input id="checkbox" type="checkbox" name="visibilidad_actividad">
         <label for="visibilidad_actividad">Oculta</label>
         <input type="hidden" name="autor_actividad" value="<?php echo $_SESSION['email_usuario']; ?>">
         <!-- <input type="submit" value="SUBIR" required> -->
