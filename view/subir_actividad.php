@@ -112,7 +112,17 @@
 
 
 </div>
-
+<?php
+if (isset($_GET['val']) && $_GET['val']=="\"img_error\"") {
+    echo "<script>alert('error de imagen. El tamaño, resoluzión o formato pueden ser incorrectos')</script>";
+}elseif (isset($_GET['val']) && $_GET['val']=="\"insert_error\"") {
+    echo "<script>alert('error con la insercción en la base de datos')</script>";
+}elseif (isset($_GET['val']) && $_GET['val']=="\"upload_error\"") {
+    echo "<script>alert('error coon la imagen y la base de datos')</script>";
+}elseif (isset($_GET['val']) && $_GET['val']=="\"field_error\"") {
+    echo "<script>alert('comprueba que todos los campos etan rellenados')</script>";
+}
+?>
 
         
     </form>

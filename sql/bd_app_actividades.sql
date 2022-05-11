@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-05-2022 a las 12:44:07
+-- Tiempo de generación: 11-05-2022 a las 09:09:49
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bd_app_actividades`
 --
-CREATE DATABASE IF NOT EXISTS `bd_app_actividades` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `bd_app_actividades`;
 
 -- --------------------------------------------------------
 
@@ -47,13 +45,13 @@ CREATE TABLE `tbl_actividad` (
 --
 
 INSERT INTO `tbl_actividad` (`id`, `nombre_act`, `desc_act`, `foto_act`, `tema_act`, `fecha_public_act`, `visibilidad_act`, `link_act`, `autor_act`, `favs_act`) VALUES
-(26, 'danny', 'Danny Larrea profesor de lenguajes de marca', 'C:/xampp/htdocs/www/M4-Lenguaje de Marcas/App-Actividades/img/actividades/6_1.png', 'informatica', '2022-05-10 11:50:50', 'publica', 'http://localhost/www/M4-Lenguaje%20de%20Marcas/App-Actividades/view/actividad.php?act=1', 6, 1),
+(26, 'danny', 'Danny Larrea profesor de lenguajes de marca', 'C:/xampp/htdocs/www/M4-Lenguaje de Marcas/App-Actividades/img/actividades/6_1.png', 'informatica', '2022-05-10 11:50:50', 'publica', 'http://localhost/www/M4-Lenguaje%20de%20Marcas/App-Actividades/view/actividad.php?act=1', 6, 0),
 (27, 'danny2', 'Danny Larrea profesor de lenguajes de marca', 'C:/xampp/htdocs/www/M4-Lenguaje de Marcas/App-Actividades/img/actividades/6_27.png', 'matematicas', '2022-05-10 11:51:07', 'publica', 'http://localhost/www/M4-Lenguaje%20de%20Marcas/App-Actividades/view/actividad.php?act=27', 6, 0),
 (29, 'danny3', 'Danny Larrea profesor de lenguajes de marca', 'C:/xampp/htdocs/www/M4-Lenguaje de Marcas/App-Actividades/img/actividades/6_28.png', 'informatica', '2022-05-10 11:53:40', 'publica', 'http://localhost/www/M4-Lenguaje%20de%20Marcas/App-Actividades/view/actividad.php?act=28', 6, 0),
 (30, 'danny4', 'Danny Larrea profesor de lenguajes de marca', 'C:/xampp/htdocs/www/M4-Lenguaje de Marcas/App-Actividades/img/actividades/6_30.png', 'matematicas', '2022-05-10 11:54:13', 'publica', 'http://localhost/www/M4-Lenguaje%20de%20Marcas/App-Actividades/view/actividad.php?act=30', 6, 0),
 (31, 'danny5', 'Danny Larrea profesor de lenguajes de marca', 'C:/xampp/htdocs/www/M4-Lenguaje de Marcas/App-Actividades/img/actividades/6_31.png', 'matematicas', '2022-05-10 11:54:28', 'publica', 'http://localhost/www/M4-Lenguaje%20de%20Marcas/App-Actividades/view/actividad.php?act=31', 6, 0),
-(32, 'danny6', 'Danny Larrea profesor de lenguajes de marca', 'C:/xampp/htdocs/www/M4-Lenguaje de Marcas/App-Actividades/img/actividades/6_32.png', 'matematicas', '2022-05-10 11:54:56', 'publica', 'http://localhost/www/M4-Lenguaje%20de%20Marcas/App-Actividades/view/actividad.php?act=32', 6, 12),
-(33, 'danny7', 'Danny Larrea profesor de lenguajes de marca', 'C:/xampp/htdocs/www/M4-Lenguaje de Marcas/App-Actividades/img/actividades/6_33.png', 'informatica', '2022-05-10 11:55:57', 'publica', 'http://localhost/www/M4-Lenguaje%20de%20Marcas/App-Actividades/view/actividad.php?act=33', 6, 2);
+(32, 'danny6', 'Danny Larrea profesor de lenguajes de marca', 'C:/xampp/htdocs/www/M4-Lenguaje de Marcas/App-Actividades/img/actividades/6_32.png', 'matematicas', '2022-05-10 11:54:56', 'publica', 'http://localhost/www/M4-Lenguaje%20de%20Marcas/App-Actividades/view/actividad.php?act=32', 6, 0),
+(33, 'danny7', 'Danny Larrea profesor de lenguajes de marca', 'C:/xampp/htdocs/www/M4-Lenguaje de Marcas/App-Actividades/img/actividades/6_33.png', 'informatica', '2022-05-10 11:55:57', 'publica', 'http://localhost/www/M4-Lenguaje%20de%20Marcas/App-Actividades/view/actividad.php?act=33', 6, 0);
 
 -- --------------------------------------------------------
 
@@ -67,17 +65,6 @@ CREATE TABLE `tbl_actividad_gustada` (
   `id_actividad` int(6) NOT NULL,
   `id_usuario` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `tbl_actividad_gustada`
---
-
-INSERT INTO `tbl_actividad_gustada` (`id`, `fecha_gustada`, `id_actividad`, `id_usuario`) VALUES
-(42, '2022-05-11 11:29:54', 32, 6),
-(43, '2022-05-11 11:29:59', 32, 1),
-(44, '2022-05-11 11:30:11', 33, 6),
-(49, '2022-05-11 12:28:01', 26, 1),
-(50, '2022-05-11 12:28:38', 33, 1);
 
 -- --------------------------------------------------------
 
@@ -142,7 +129,7 @@ ALTER TABLE `tbl_actividad`
 -- AUTO_INCREMENT de la tabla `tbl_actividad_gustada`
 --
 ALTER TABLE `tbl_actividad_gustada`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuario`

@@ -33,6 +33,15 @@
         }
         $act_request_byFav = mysqli_query($conexion, $act_query_byFav);
 
+        // procesar la ruta absoluta
+        $filePathArray = explode("\\",__FILE__);
+        array_splice($filePathArray, 0, 1);
+        array_splice($filePathArray, -2);
+        if ($filePathArray[0] == "xampp") {
+            array_splice($filePathArray, 0, 2);
+        }
+        $filePath = $_SERVER['SERVER_NAME']."/".join("/", $filePathArray)."/";
+
         // comprovación de inicio de sesión del usuario
         session_start();
         if (!isset($_SESSION['email_usuario'])) {
@@ -69,13 +78,16 @@
             <div class="column-1 padding-s">
                 <?php 
                     foreach ($act_request_byFav as $actividad) {
-                        $nombreArchivo = explode("/",$actividad['foto_act'])[8];
-                        $ruta = "../img/actividades/".$nombreArchivo;
-                        $act_link = "./actividad.php?act=".$actividad['id'];
+                        // $nombreArchivo = explode("/",$actividad['foto_act'])[8];
+                        // $ruta = "../img/actividades/".$nombreArchivo;
+                        $ruta = $actividad['foto_act'];
+                        // $act_link = "./actividad.php?act=".$actividad['id'];
 
                         $auth_query = "SELECT * FROM tbl_usuario WHERE id=".$actividad['autor_act'];
                         $auth_request = mysqli_query($conexion, $auth_query);
                         $author = mysqli_fetch_array($auth_request);
+
+                        $act_link = "http://".$filePath."view/actividad.php?act=".$actividad['id'];
 
                         echo "<div class='column-5 padding-s'>";
                         echo "  <h5>".$actividad['nombre_act']."</h5>";
@@ -91,26 +103,30 @@
 
         <!-- listado de actividades -->
         <div class="row-c">
-            <div class="column-1 padding-m">
+        <div class='select'>
+            
                 <h4 class="padding-m">Explora</h4>
-            </div>
-
+            
+            
             <form method="get">
                 <select name="tema_actividad">
                     <option value="matematicas">Matemáticas</option>
                     <option value="informatica">Informática</option>
                 </select>
                 <input type="submit" value="Filtrar">
+                <input type="button" value="Borrar Filtro" onclick="window.location.href = './actividades.php'">
             </form>
+            </div>
 
             <?php 
                 $act_query_byDate = "SELECT * FROM tbl_actividad ORDER BY fecha_public_act DESC LIMIT 6;";
                 $act_request_byDate = mysqli_query($conexion, $act_query_byDate);
 
                 foreach ($act_request_byDate as $actividad) {
-                    $nombreArchivo = explode("/",$actividad['foto_act'])[8];
-                    $ruta = "../img/actividades/".$nombreArchivo;
-                    $act_link = "./actividad.php?act=".$actividad['id'];
+                    // $nombreArchivo = explode("/",$actividad['foto_act'])[8];
+                    // $ruta = "../img/actividades/".$nombreArchivo;
+                    $ruta = $actividad['foto_act'];
+                    // $act_link = "./actividad.php?act=".$actividad['id'];
 
                     $auth_query = "SELECT * FROM tbl_usuario WHERE id=".$actividad['autor_act'];
                     $auth_request = mysqli_query($conexion, $auth_query);
@@ -120,13 +136,14 @@
                     $likes_request = mysqli_query($conexion, $likes_query);
                     $likes_actividad = mysqli_fetch_array($likes_request)['likes']; 
 
+                    $act_link = "http://".$filePath."view/actividad.php?act=".$actividad['id'];
         
                     echo "<div class='column-3 padding-mobile displayer'>";
                     echo "  <h5>".$actividad['nombre_act']."</h5>";
-                    echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";'>";
+                    echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";' class='xplore-act-img'>";
                     echo "  <div  style='float: left;' class='padding-m like'>";
                     echo "      <p>".$author['nombre_usuario']."</p>";
-                    echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"".$actividad['link_act']."\");'><i class='fa-solid fa-link'></i></button>";
+                    echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"{$act_link}\");'><i class='fa-solid fa-link'></i></button>";
                     echo "      <button class='btn btn-light m-1' type='submit' onClick='window.location.href = \"./login.php\"'>$likes_actividad<i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";                  
                     echo "  </div>";    
                     echo "</div>";
@@ -170,13 +187,16 @@
                 <?php 
                     // recorrer query de actividades y mostrar 4
                     foreach ($act_request_byFav as $actividad) {
-                        $nombreArchivo = explode("/",$actividad['foto_act'])[8];
-                        $ruta = "../img/actividades/".$nombreArchivo;
-                        $act_link = "./actividad.php?act=".$actividad['id'];
+                        // $nombreArchivo = explode("/",$actividad['foto_act'])[8];
+                        // $ruta = "../img/actividades/".$nombreArchivo;
+                        $ruta = $actividad['foto_act'];
+                        // $act_link = "./actividad.php?act=".$actividad['id'];
 
                         $auth_query = "SELECT * FROM tbl_usuario WHERE id=".$actividad['autor_act'];
                         $auth_request = mysqli_query($conexion, $auth_query);
                         $author = mysqli_fetch_array($auth_request);
+
+                        $act_link = "http://".$filePath."view/actividad.php?act=".$actividad['id'];
 
                         echo "<div class='column-5 padding-s'>";
                         echo "  <h5>".$actividad['nombre_act']."</h5>";
@@ -193,17 +213,21 @@
 
         <!-- listado de actividades -->
         <div class="row-c">
-            <div class="column-1 padding-m">
+        <div class='select'>
+            
                 <h4 class="padding-m">Explora</h4>
-            </div>
-
+            
+            
             <form method="get">
                 <select name="tema_actividad">
                     <option value="matematicas">Matemáticas</option>
                     <option value="informatica">Informática</option>
                 </select>
                 <input type="submit" value="Filtrar">
+                <input type="button" value="Borrar Filtro" onclick="window.location.href = './actividades.php'">
             </form>
+            </div>
+            
 
             <?php 
                 if (isset($_GET['tema_actividad'])) {
@@ -215,24 +239,28 @@
                 $act_request_byDate = mysqli_query($conexion, $act_query_byDate);
 
                 foreach ($act_request_byDate as $actividad) {
-                    $nombreArchivo = explode("/",$actividad['foto_act'])[8];
-                    $ruta = "../img/actividades/".$nombreArchivo;
-                    $act_link = "./actividad.php?act=".$actividad['id'];
+                    // $nombreArchivo = explode("/",$actividad['foto_act'])[8];
+                    // $ruta = "../img/actividades/".$nombreArchivo;
+                    $ruta = $actividad['foto_act'];
+                    // $act_link = "./actividad.php?act=".$actividad['id'];
 
-                    $auth_query = "SELECT * FROM tbl_usuario WHERE id=".$actividad['autor_act'].";";
+                    $auth_query = "SELECT * FROM tbl_usuario WHERE id=".$actividad['autor_act'];
                     $auth_request = mysqli_query($conexion, $auth_query);
                     $author = mysqli_fetch_array($auth_request);
 
                     $likes_query = "SELECT count(id) as 'likes' FROM tbl_actividad_gustada WHERE id_actividad=".$actividad['id'].";";
                     $likes_request = mysqli_query($conexion, $likes_query);
-                    $likes_actividad = mysqli_fetch_array($likes_request)['likes'];
+                    $likes_actividad = mysqli_fetch_array($likes_request)['likes']; 
+
+                    $act_link = "http://".$filePath."view/actividad.php?act=".$actividad['id'];
+
 
                     echo "<div class='column-3 padding-mobile displayer'>";
                     echo "  <h5>".$actividad['nombre_act']."</h5>";
-                    echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";'>";
+                    echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";' class='xplore-act-img'>";
                     echo "  <div  style='float: left;' class='padding-m like'>";
                     echo "      <p>".$author['nombre_usuario']."</p>";
-                    echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"".$actividad['link_act']."\");'><i class='fa-solid fa-link'></i></button>";
+                    echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"{$act_link}\");'><i class='fa-solid fa-link'></i></button>";
                     echo "      <button class='btn btn-light m-1' type='submit' onClick='like(".$actividad['id'].", ".$_SESSION['id_usuario'].")' id='act-".$actividad['id']."-like-bttn'>$likes_actividad <i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";
                     echo "  </div>";    
                     echo "</div>";

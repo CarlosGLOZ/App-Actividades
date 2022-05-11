@@ -32,3 +32,24 @@ h4 {
 .padding-mobile {
   padding: 3%;
 }
+.select {
+  display: flex;
+  align-items: center;
+}
+.select form {
+  padding-left: 15%;
+}
+.select form select {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding-left: 1%;
+  color: gray;
+  width: 140px;
+}
+.select form select option {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+}
+.xplore-act-img:hover {
+  cursor: pointer;
+}

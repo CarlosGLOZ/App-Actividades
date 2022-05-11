@@ -7,7 +7,9 @@
     <title>Actividad</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../css/actividad.php">
+    <link rel="stylesheet" href="../css/actividad.css">
+    <script src="https://kit.fontawesome.com/e0b63cee0f.js" crossorigin="anonymous"></script>
+   
 </head>
 <body>
 
@@ -22,17 +24,30 @@
                 <div class="collapse navbar-collapse" id="navbarScroll">
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vh;">
                         <li class="nav-item">
-                            <a class="nav-link" href="./nosotros.php">Sobre nosotros</a>
+                            <a class="nav-link active" href="./nosotros.php">Sobre nosotros</a>
+
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link active disabled" aria-current="page" href="./actividades.html">Actividades</a>
+                            <a class="nav-link active "  href="./actividades.php">Actividades</a>
                         </li>
                     </ul>
                     <form class="d-flex">
                         <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-                        <button class="btn btn-light form-control me-1" type="button" onclick="window.location.href = './login.php'"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
-                        <button class="btn btn-light form-control ms-1" type="button" onclick="window.location.href = './login.php'">Acceder</button>
+                    <?php
+                    session_start();
+                    if (isset($_SESSION['nombre_usuario'])) {
+                        echo "<button class='btn btn-light form-control me-1' type='button' onclick='window.location.href = './subir_actividad.php'><i class='fa-solid fa-arrow-up-from-bracket'></i></button>";
+                        echo "<button class='btn btn-light form-control ms-1' type='button' onclick='window.location.href = './mis_actividades.php'>{$_SESSION['nombre_usuario']}</button>";
+                        
+                    }else {
+                        echo "<button class='btn btn-light form-control me-1' type='button' onclick='window.location.href = './subir_actividad.php'><i class='fa-solid fa-arrow-up-from-bracket'></i></button>";
+                        echo "<button class='btn btn-light form-control ms-1' type='button' onclick='window.location.href = './login.php'>ACCEDER</button>";
+                        
+                    }
+                   
+                    ?>
+                       
                     </form>
                 </div>
             </div>
@@ -40,6 +55,7 @@
 
 
     <?php
+
         if (!empty($_GET['act'])) {
             require "../BBDD/conexion.php";
 
@@ -61,15 +77,25 @@
                 $nombre_autor = $author['nombre_usuario'];
                 
                 // MOSTRAR DATOS DE LA ACTIVIDAD
-                $nombreArchivo = explode("/",$actividad['foto_act'])[8];
-                $ruta = "../img/actividades/".$nombreArchivo;
-
-                echo "NOMBRE: ".$actividad['nombre_act']."<br><br>";
-                echo "TEMA: ".$actividad['tema_act']."<br><br>";
-                echo "DESCRIPCIÓN: ".$actividad['desc_act']."<br><br>";
-                echo "AUTOR: <a href='./mis_actividades.php?author={$id_autor}'>{$nombre_autor}</a><br><br>";
+                // $nombreArchivo = explode("/",$actividad['foto_act'])[8];
+                // $ruta = "../img/actividades/".$nombreArchivo;
+                $ruta = $actividad['foto_act'];
+                echo "<div class='row-c'>";
+                echo "<div class='column-2 box-info'>";
+                echo "<div class='nombre'>";
+                echo "<span class='info'>NOMBRE: </span> ".$actividad['nombre_act']."<br>";
+                echo "</div>";
+                echo "<br>";
+                echo "<span class='info'>TEMA: </span> ".$actividad['tema_act']."<br><br>";
+                echo "<span class='info'>DESCRIPCIÓN: </span> ".$actividad['desc_act']."<br><br>";
+                echo "<span class='info' >AUTOR:</span> <a href='./mis_actividades.php?author={$id_autor}'>{$nombre_autor}</a>";
+                echo"</div>";
+                echo "<div class='column2 image'>";
                 echo "<img src='".$ruta."' alt='".$actividad['nombre_act']."'><br><br>";
-
+                echo "</div>";
+                
+                echo "</div>";
+                
             } else {
                 echo "<script>window.location.href = './actividades.php';</script>";
             }
