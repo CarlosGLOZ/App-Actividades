@@ -36,6 +36,8 @@
                         <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
                     <?php
                     session_start();
+
+                    // MODIFICAR NAVBAR SEGÚN SI EL USUARIO ESTÁ LOGEADO O NO
                     if (isset($_SESSION['nombre_usuario'])) {
                         echo "<button class='btn btn-light form-control me-1' type='button' onclick='window.location.href = './subir_actividad.php'><i class='fa-solid fa-arrow-up-from-bracket'></i></button>";
                         echo "<button class='btn btn-light form-control ms-1' type='button' onclick='window.location.href = './mis_actividades.php'>{$_SESSION['nombre_usuario']}</button>";
@@ -59,6 +61,7 @@
         if (!empty($_GET['act'])) {
             require "../BBDD/conexion.php";
 
+            // HACER UNA QUERY PARA LA ACTIVIDAD EN CONCRETO 
             $check_query = "SELECT * FROM tbl_actividad WHERE id = {$_GET['act']}";
             $check_request = mysqli_query($conexion, $check_query);
 
@@ -77,8 +80,6 @@
                 $nombre_autor = $author['nombre_usuario'];
                 
                 // MOSTRAR DATOS DE LA ACTIVIDAD
-                // $nombreArchivo = explode("/",$actividad['foto_act'])[8];
-                // $ruta = "../img/actividades/".$nombreArchivo;
                 $ruta = $actividad['foto_act'];
                 echo "<div class='row-c'>";
                 echo "<div class='column-2 box-info'>";

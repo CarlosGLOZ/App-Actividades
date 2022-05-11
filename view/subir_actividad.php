@@ -11,6 +11,7 @@
 <body>
 
      <?php 
+    // COMPROBAR QUE EL USUARIO ESTÁ LOGEADO, SI NO, DEVOLVERLO A LOGIN
     session_start();
     if (!isset($_SESSION['email_usuario'])) {
         echo "<script>window.location.href = './login.php';</script>";
@@ -113,6 +114,7 @@
 
 </div>
 <?php
+// INFORMAR AL USUARIO DE ERRORES DE VALIDACIÓN
 if (isset($_GET['val']) && $_GET['val']=="\"img_error\"") {
     echo "<script>alert('error de imagen. El tamaño, resoluzión o formato pueden ser incorrectos')</script>";
 }elseif (isset($_GET['val']) && $_GET['val']=="\"insert_error\"") {

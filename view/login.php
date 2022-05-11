@@ -28,6 +28,7 @@
    
     <div class="box">
     <?php
+    // VALIDACIÓN
         if (isset($_GET['validation']) && ($_GET['validation']=="false")) {
             echo "<h2 id='error'>Usuario o contraseña incorrecto</h2>";
         }else{
@@ -35,6 +36,7 @@
         }
         ?>
     
+    <!-- FORMULARIO DE LOGIN -->
     <form action="../proc/validate_login.php" method="post">
         <label for="email">Email</label><br>
         <input  class="form" type="email" name="email" requied>
@@ -46,8 +48,10 @@
         <input id="submit" type="submit" value="INICIAR SESIÓN">
         
     </form>
+    <!-- BOTÓN ADICIONAL PARA REGISTRARSE -->
     <p id="registro">o <a href="./register.php">registrate</a> con una cuenta nueva</p>
     </div>
+    <!-- BOTÓN PARA IR A INDEX.HTML -->
     <svg onclick="window.location.href='../index.html'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M21 11H6.414l5.293-5.293-1.414-1.414L2.586 12l7.707 7.707 1.414-1.414L6.414 13H21z"></path></svg>
   
   

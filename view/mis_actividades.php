@@ -36,6 +36,7 @@
     }
     $filePath = $_SERVER['SERVER_NAME']."/".join("/", $filePathArray)."/";
 
+    // ASEGURARSE DE QUE LA URL ES CORRECTA 
     if (!isset($_GET['author'])) {
         echo "<script>window.location.href = './actividades.php';</script>";
     } else {
@@ -49,6 +50,7 @@
 
 <!-- NAV -->
 <?php
+// COMPROBAR SI EL USUARIO ESTÁ LOGEADO
 if (isset($_SESSION['id_usuario'])) {
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -125,6 +127,7 @@ if (isset($_SESSION['id_usuario'])) {
 
 
     <!-- HACER UNA QUERY PARA RECOGER LAS ACTIVIDADES CUYO AUTOR SEA EL USUARIO DEL GET -->
+    <!-- SI EL USUARIO NO ES EL DE LA SESIÓN, SE RECOGERAN SOLO LAS ACTIVIDADES PÚBLICAS -->
     <?php 
         if (isset($_SESSION['id_usuario'])) {
             if ($_GET['author']==$_SESSION['id_usuario']) {
@@ -135,22 +138,21 @@ if (isset($_SESSION['id_usuario'])) {
             $actividades = mysqli_query($conexion, $act_query);
 
             foreach ($actividades as $key => $actividad) {
-                // $nombreArchivo = explode("/",$actividad['foto_act'])[8];
-                // $ruta = "../img/actividades/".$nombreArchivo;
                 $ruta = $actividad['foto_act'];
-                // $act_link = "./actividad.php?act=".$actividad['id'];
 
+                // QUERY DEL AUTOR DE LA ACTIVIDAD
                 $auth_query = "SELECT * FROM tbl_usuario WHERE id=".$actividad['autor_act'];
                 $auth_request = mysqli_query($conexion, $auth_query);
                 $author = mysqli_fetch_array($auth_request);
 
+                // QUERY DE LOS LIKES DE LA ACTIVIDAD
                 $likes_query = "SELECT count(id) as 'likes' FROM tbl_actividad_gustada WHERE id_actividad=".$actividad['id'].";";
                 $likes_request = mysqli_query($conexion, $likes_query);
                 $likes_actividad = mysqli_fetch_array($likes_request)['likes']; 
 
                 $act_link = "http://".$filePath."view/actividad.php?act=".$actividad['id'];
 
-
+                // MOSTRAR DATOS DE LA ACTIVIDAD
                 echo "<div class='column-3 padding-mobile displayer'>";
                 echo "  <h5>".$actividad['nombre_act']."</h5>";
                 echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";' class='xplore-act-img'>";
@@ -166,22 +168,21 @@ if (isset($_SESSION['id_usuario'])) {
             $actividades = mysqli_query($conexion, $act_query);
 
             foreach ($actividades as $key => $actividad) {
-                // $nombreArchivo = explode("/",$actividad['foto_act'])[8];
-                // $ruta = "../img/actividades/".$nombreArchivo;
                 $ruta = $actividad['foto_act'];
-                // $act_link = "./actividad.php?act=".$actividad['id'];
 
+                // QUERY DEL AUTOR DE LA ACTIVIDAD
                 $auth_query = "SELECT * FROM tbl_usuario WHERE id=".$actividad['autor_act'];
                 $auth_request = mysqli_query($conexion, $auth_query);
                 $author = mysqli_fetch_array($auth_request);
-
+                // QUERY DE LOS LIKES DE LA ACTIVIDAD
+                
                 $likes_query = "SELECT count(id) as 'likes' FROM tbl_actividad_gustada WHERE id_actividad=".$actividad['id'].";";
                 $likes_request = mysqli_query($conexion, $likes_query);
                 $likes_actividad = mysqli_fetch_array($likes_request)['likes']; 
 
                 $act_link = "http://".$filePath."view/actividad.php?act=".$actividad['id'];
 
-
+                // MOSTRAR DATOS DE LA ACTIVIDAD
                 echo "<div class='column-3 padding-mobile displayer'>";
                 echo "  <h5>".$actividad['nombre_act']."</h5>";
                 echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";' class='xplore-act-img'>";

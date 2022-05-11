@@ -1,3 +1,7 @@
+// UTILIZAMOS AJAX PARA PODER AÑADIR UN REGISTRO DE LIKE A LA BDD SIN RECARGAR LA PAGINA
+// esto es una fumada wtf
+// pero funciona :)
+
 function like(act_id, user_id) {
     url = "../proc/like_activity.php";
     $.ajax({
