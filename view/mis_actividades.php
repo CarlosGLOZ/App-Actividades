@@ -25,6 +25,17 @@
     <!-- PRIMERO COMPROBAR QUE LA URL ESTÁ CORRECTA -->
     <?php
     session_start();
+
+    // procesar la ruta absoluta
+    $filePathArray = explode("\\",__FILE__);
+    array_splice($filePathArray, -2);
+    for ($i=0; $i < count($filePathArray); $i++) { 
+        if ($filePathArray[$i] == "www") {
+            array_splice($filePathArray, 0, $i);
+        }
+    }
+    $filePath = $_SERVER['SERVER_NAME']."/".join("/", $filePathArray)."/";
+
     if (!isset($_GET['author'])) {
         echo "<script>window.location.href = './actividades.php';</script>";
     } else {
@@ -37,32 +48,64 @@
     ?>
 
 <!-- NAV -->
+<?php
+if (isset($_SESSION['id_usuario'])) {
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="../index.html">#AppName</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarScroll">
-                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vh;">
-                        <li class="nav-item">
-                            <a class="nav-link" href="./nosotros.php">Sobre nosotros</a>
-                        </li>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">#AppName</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vh;">
+                <li class="nav-item">
+                    <a class="nav-link" href="./nosotros.php">Sobre nosotros</a>
+                </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link active disabled" aria-current="page" href="./actividades.html">Actividades</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-                        <button class="btn btn-light form-control me-1" type="button" onclick="window.location.href = './subir_actividad.php'"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
-                        <button class="btn btn-light form-control ms-1" type="button" onclick="window.location.href = './mis_actividades.php?author=<?php echo $_SESSION['id_usuario']; ?>'"> <?php echo $_SESSION['nombre_usuario']; ?> </button>
-                        <button class="btn btn-light form-control ms-1" type="button" onclick="window.location.href = '../proc/logout.php'">LogOut</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+                <li class="nav-item">
+                    <a class="nav-link active disabled" aria-current="page" href="./actividades.html">Actividades</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+                <button class="btn btn-light form-control me-1" type="button" onclick="window.location.href = './subir_actividad.php'"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+                <button class="btn btn-light form-control ms-1" type="button" onclick="window.location.href = './mis_actividades.php?author=<?php echo $_SESSION['id_usuario']; ?>'"> <?php echo $_SESSION['nombre_usuario']; ?> </button>
+                <button class="btn btn-light form-control ms-1" type="button" onclick="window.location.href = '../proc/logout.php'">LogOut</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<?php
+} else {
+?>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">#AppName</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vh;">
+                <li class="nav-item">
+                    <a class="nav-link" href="./nosotros.php">Sobre nosotros</a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link active disabled" aria-current="page" href="./actividades.html">Actividades</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+                <button class="btn btn-light form-control me-1" type="button" onclick="window.location.href = './login.php'"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+                <button class="btn btn-light form-control ms-1" type="button" onclick="window.location.href = './login.php'">Acceder</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<?php
+}
+?>
 
 
 <!-- cabecera -->
@@ -83,35 +126,74 @@
 
     <!-- HACER UNA QUERY PARA RECOGER LAS ACTIVIDADES CUYO AUTOR SEA EL USUARIO DEL GET -->
     <?php 
-        $act_query = "SELECT * FROM tbl_actividad WHERE autor_act = ".$_GET['author'];
-        $actividades = mysqli_query($conexion, $act_query);
+        if (isset($_SESSION['id_usuario'])) {
+            if ($_GET['author']==$_SESSION['id_usuario']) {
+                $act_query = "SELECT * FROM tbl_actividad WHERE autor_act = ".$_GET['author'];
+            } else {
+                $act_query = "SELECT * FROM tbl_actividad WHERE autor_act = ".$_GET['author']." and visibilidad_act = 'publica'";
+            }
+            $actividades = mysqli_query($conexion, $act_query);
 
-        foreach ($actividades as $key => $actividad) {
-            // echo "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<br>";
+            foreach ($actividades as $key => $actividad) {
+                // $nombreArchivo = explode("/",$actividad['foto_act'])[8];
+                // $ruta = "../img/actividades/".$nombreArchivo;
+                $ruta = $actividad['foto_act'];
+                // $act_link = "./actividad.php?act=".$actividad['id'];
 
-            $id_autor = $author['id'];
-            $nombre_autor = $author['nombre_usuario']; 
+                $auth_query = "SELECT * FROM tbl_usuario WHERE id=".$actividad['autor_act'];
+                $auth_request = mysqli_query($conexion, $auth_query);
+                $author = mysqli_fetch_array($auth_request);
 
-            $likes_query = "SELECT count(id) as 'likes' FROM tbl_actividad_gustada WHERE id_actividad=".$actividad['id'].";";
-            $likes_request = mysqli_query($conexion, $likes_query);
-            $likes_actividad = mysqli_fetch_array($likes_request)['likes'];
+                $likes_query = "SELECT count(id) as 'likes' FROM tbl_actividad_gustada WHERE id_actividad=".$actividad['id'].";";
+                $likes_request = mysqli_query($conexion, $likes_query);
+                $likes_actividad = mysqli_fetch_array($likes_request)['likes']; 
 
-            // MOSTRAR DATOS DE LA ACTIVIDAD
-            $nombreArchivo = explode("/",$actividad['foto_act'])[8];
-            $ruta = "../img/actividades/".$nombreArchivo;
-            $act_link = "./actividad.php?act=".$actividad['id'];
-            echo "<div class='column-3 padding-mobile displayer'>";
-            echo "  <h5>".$actividad['nombre_act']."</h5>";
-            echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";'>";
-            echo "  <div  style='float: left;' class='padding-m like'>";
-            echo "      <p>".$author['nombre_usuario']."</p>";
-            echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"".$actividad['link_act']."\");'><i class='fa-solid fa-link'></i></button>";
-            echo "      <button class='btn btn-light m-1' type='submit' onClick='like(".$actividad['id'].", ".$_SESSION['id_usuario'].")' id='act-".$actividad['id']."-like-bttn'>$likes_actividad<i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";                  
-            echo "  </div>";    
-            echo "</div>";
+                $act_link = "http://".$filePath."view/actividad.php?act=".$actividad['id'];
+
+
+                echo "<div class='column-3 padding-mobile displayer'>";
+                echo "  <h5>".$actividad['nombre_act']."</h5>";
+                echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";' class='xplore-act-img'>";
+                echo "  <div  style='float: left;' class='padding-m like'>";
+                echo "      <p>".$author['nombre_usuario']."</p>";
+                echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"{$act_link}\");'><i class='fa-solid fa-link'></i></button>";
+                echo "      <button class='btn btn-light m-1' type='submit' onClick='like(".$actividad['id'].", ".$_SESSION['id_usuario'].")' id='act-".$actividad['id']."-like-bttn'>$likes_actividad <i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";
+                echo "  </div>";    
+                echo "</div>";
+            }
+        } else {
+            $act_query = "SELECT * FROM tbl_actividad WHERE autor_act = ".$_GET['author']." and visibilidad_act = 'publica'";
+            $actividades = mysqli_query($conexion, $act_query);
+
+            foreach ($actividades as $key => $actividad) {
+                // $nombreArchivo = explode("/",$actividad['foto_act'])[8];
+                // $ruta = "../img/actividades/".$nombreArchivo;
+                $ruta = $actividad['foto_act'];
+                // $act_link = "./actividad.php?act=".$actividad['id'];
+
+                $auth_query = "SELECT * FROM tbl_usuario WHERE id=".$actividad['autor_act'];
+                $auth_request = mysqli_query($conexion, $auth_query);
+                $author = mysqli_fetch_array($auth_request);
+
+                $likes_query = "SELECT count(id) as 'likes' FROM tbl_actividad_gustada WHERE id_actividad=".$actividad['id'].";";
+                $likes_request = mysqli_query($conexion, $likes_query);
+                $likes_actividad = mysqli_fetch_array($likes_request)['likes']; 
+
+                $act_link = "http://".$filePath."view/actividad.php?act=".$actividad['id'];
+
+
+                echo "<div class='column-3 padding-mobile displayer'>";
+                echo "  <h5>".$actividad['nombre_act']."</h5>";
+                echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";' class='xplore-act-img'>";
+                echo "  <div  style='float: left;' class='padding-m like'>";
+                echo "      <p>".$author['nombre_usuario']."</p>";
+                echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"{$act_link}\");'><i class='fa-solid fa-link'></i></button>";
+                echo "      <button class='btn btn-light m-1' type='submit' onClick='window.location.href = \"./login.php\"'>$likes_actividad<i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";                  
+                echo "  </div>";    
+                echo "</div>";
+            }
         }
-        }
-
+    }
     ?>
 </body>
 </html>

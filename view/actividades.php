@@ -27,18 +27,19 @@
         require "../BBDD/conexion.php";
         if (isset($_GET['tema_actividad'])) {
             $filtro = $_GET['tema_actividad'];
-            $act_query_byFav = "SELECT * FROM tbl_actividad WHERE tema_act = '{$filtro}' ORDER BY favs_act DESC LIMIT 5;";
+            $act_query_byFav = "SELECT * FROM tbl_actividad WHERE tema_act = '{$filtro}' and visibilidad_act = 'publica' ORDER BY favs_act DESC LIMIT 5;";
         } else {
-            $act_query_byFav = "SELECT * FROM tbl_actividad ORDER BY favs_act DESC LIMIT 5;";
+            $act_query_byFav = "SELECT * FROM tbl_actividad WHERE visibilidad_act = 'publica' ORDER BY favs_act DESC LIMIT 5;";
         }
         $act_request_byFav = mysqli_query($conexion, $act_query_byFav);
 
         // procesar la ruta absoluta
         $filePathArray = explode("\\",__FILE__);
-        array_splice($filePathArray, 0, 1);
         array_splice($filePathArray, -2);
-        if ($filePathArray[0] == "xampp") {
-            array_splice($filePathArray, 0, 2);
+        for ($i=0; $i < count($filePathArray); $i++) { 
+            if ($filePathArray[$i] == "www") {
+                array_splice($filePathArray, 0, $i);
+            }
         }
         $filePath = $_SERVER['SERVER_NAME']."/".join("/", $filePathArray)."/";
 
@@ -119,7 +120,7 @@
             </div>
 
             <?php 
-                $act_query_byDate = "SELECT * FROM tbl_actividad ORDER BY fecha_public_act DESC LIMIT 6;";
+                $act_query_byDate = "SELECT * FROM tbl_actividad WHERE visibilidad_act = 'publica' ORDER BY fecha_public_act DESC LIMIT 6;";
                 $act_request_byDate = mysqli_query($conexion, $act_query_byDate);
 
                 foreach ($act_request_byDate as $actividad) {
@@ -232,9 +233,9 @@
             <?php 
                 if (isset($_GET['tema_actividad'])) {
                     $filtro = $_GET['tema_actividad'];
-                    $act_query_byDate = "SELECT * FROM tbl_actividad WHERE tema_act = '{$filtro}' ORDER BY fecha_public_act DESC LIMIT 6;";
+                    $act_query_byDate = "SELECT * FROM tbl_actividad WHERE tema_act = '{$filtro}' and visibilidad_act = 'publica' ORDER BY fecha_public_act DESC LIMIT 6;";
                 } else {
-                    $act_query_byDate = "SELECT * FROM tbl_actividad ORDER BY fecha_public_act DESC;";
+                    $act_query_byDate = "SELECT * FROM tbl_actividad WHERE visibilidad_act = 'publica' ORDER BY fecha_public_act DESC;";
                 }
                 $act_request_byDate = mysqli_query($conexion, $act_query_byDate);
 
