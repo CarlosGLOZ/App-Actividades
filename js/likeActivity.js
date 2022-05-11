@@ -10,14 +10,17 @@ function like(act_id, user_id) {
         success: function(response) {
             var like_text = document.getElementById("act-" + act_id + "-like-bttn");
             var like_icon = document.getElementById("act-" + act_id + "-like-icon");
+            console.log("RESPONSE: " + response);
             if (response) {
                 //suma like
+                console.log("suma like");
                 like_text.innerHTML = parseInt(like_text.innerHTML) + 1;
-                like_icon.classList.add("red-icon");
+                // like_icon.classList.add("red-icon");
             } else {
                 //resta like
+                console.log("resta like");
                 like_text.innerHTML = parseInt(like_text.innerHTML) - 1;
-                like_icon.classList.remove("red-icon");
+                // like_icon.classList.remove("red-icon");
             }
         }
     }).done(function() {

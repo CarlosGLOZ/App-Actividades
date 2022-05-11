@@ -58,7 +58,6 @@
                 <h5>Topics</h5>
                 <button type="button" class="btn btn-primary mt-1">matemáticas</button>
                 <button type="button" class="btn btn-info mt-1">informática</button>
-                <button type="button" class="btn btn-dark mt-1">...</button>
             </div>
         </div>
 
