@@ -11,8 +11,8 @@
   flex-direction: column;
 }
 .displayer img {
-  width: 350px;
-  height: 300px;
+  width: 450px;
+  height: 400px;
   object-fit: cover;
 }
 .like {
@@ -21,11 +21,14 @@
   align-items: flex-end;
 }
 .like p {
-  padding-right: 50%;
+  padding-right: 55%;
 }
 h5 {
   font-weight: bold;
 }
 h4 {
   font-weight: bold;
+}
+.padding-mobile {
+  padding: 3%;
 }

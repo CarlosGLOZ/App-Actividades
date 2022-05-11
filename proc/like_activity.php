@@ -13,12 +13,16 @@ if (!empty($_POST['act_id']) && !empty($_POST['user_id'])) {
         //Borrar like
         $delete_query = "DELETE FROM tbl_actividad_gustada WHERE id_usuario = {$user_id} AND id_actividad = {$act_id};";
         $delete = mysqli_query($conexion, $delete_query);
+        $update_query = "UPDATE tbl_actividad SET favs_act = favs_act - 1 WHERE id = {$act_id};";
+        $update = mysqli_query($conexion, $update_query);
         echo false;
     }
     else {
         //Introducir like
         $insert_query = "INSERT INTO tbl_actividad_gustada (fecha_gustada, id_actividad, id_usuario) VALUES (NOW(), {$act_id}, {$user_id});";
         $insert = mysqli_query($conexion, $insert_query);
+        $update_query = "UPDATE tbl_actividad SET favs_act = favs_act + 1 WHERE id = {$act_id};";
+        $update = mysqli_query($conexion, $update_query);
         echo true;
     }
 }

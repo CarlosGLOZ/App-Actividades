@@ -116,16 +116,19 @@
                     $auth_request = mysqli_query($conexion, $auth_query);
                     $author = mysqli_fetch_array($auth_request);
 
-                    echo "<div class='column-3 padding-mobile'>";
+                    $likes_query = "SELECT count(id) as 'likes' FROM tbl_actividad_gustada WHERE id_actividad=".$actividad['id'].";";
+                    $likes_request = mysqli_query($conexion, $likes_query);
+                    $likes_actividad = mysqli_fetch_array($likes_request)['likes']; 
+
+        
+                    echo "<div class='column-3 padding-mobile displayer'>";
                     echo "  <h5>".$actividad['nombre_act']."</h5>";
                     echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";'>";
-                    echo "  <div style='float: left;' class='padding-m'>";
-                    echo "      <p>".$author['nombre_usuario']."<p>";
-                    echo "  </div>";
-                    echo "  <div style='float: right;' class='padding-m'>";
-                    echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"".$actividad['link_act']."\");'><i class='fa-solid fa-link' id='".$actividad['id']."'></i></button>";
-                    echo "      <button class='btn btn-light m-1' type='submit' onClick='window.location.href = \"./login.php\";'><i class='fa-solid fa-heart'></i></button>";
-                    echo "  </div>";
+                    echo "  <div  style='float: left;' class='padding-m like'>";
+                    echo "      <p>".$author['nombre_usuario']."</p>";
+                    echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"".$actividad['link_act']."\");'><i class='fa-solid fa-link'></i></button>";
+                    echo "      <button class='btn btn-light m-1' type='submit' onClick='window.location.href = \"./login.php\"'>$likes_actividad<i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";                  
+                    echo "  </div>";    
                     echo "</div>";
                 }
             
@@ -230,7 +233,7 @@
                     echo "  <div  style='float: left;' class='padding-m like'>";
                     echo "      <p>".$author['nombre_usuario']."</p>";
                     echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"".$actividad['link_act']."\");'><i class='fa-solid fa-link'></i></button>";
-                    echo "      <button class='btn btn-light m-1' type='submit' onClick='like(".$actividad['id'].", ".$_SESSION['id_usuario'].")' id='act-".$actividad['id']."-like-bttn'>$likes_actividad<i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";
+                    echo "      <button class='btn btn-light m-1' type='submit' onClick='like(".$actividad['id'].", ".$_SESSION['id_usuario'].")' id='act-".$actividad['id']."-like-bttn'>$likes_actividad <i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";
                     echo "  </div>";    
                     echo "</div>";
                 }
