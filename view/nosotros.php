@@ -56,8 +56,8 @@
         <div class="row-c padding-m">
             <div class="column-66 padding-m padding-right">
                 <h5>Topics</h5>
-                <button type="button" class="btn btn-primary mt-1">matemáticas</button>
-                <button type="button" class="btn btn-info mt-1">informática</button>
+                <button type="button" class="btn btn-primary mt-1" onclick="window.location.href = './actividades.php?tema_actividad=matematicas'">matemáticas</button>
+                <button type="button" class="btn btn-info mt-1" onclick="window.location.href = './actividades.php?tema_actividad=informatica'">        informática</button>
             </div>
         </div>
 

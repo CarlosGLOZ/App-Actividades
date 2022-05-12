@@ -25,12 +25,12 @@
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vh;">
                 <li class="nav-item">
-                    <a class="nav-link active" href="./nosotros.php">Sobre nosotros</a>
+                    <a class="nav-link" href="./nosotros.php">Sobre nosotros</a>
 
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active "  href="./actividades.php">Actividades</a>
+                    <a class="nav-link"  href="./actividades.php">Actividades</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -45,7 +45,7 @@
                 echo "<button class='btn btn-light form-control ms-1' type='button' onclick='window.location.href = \"../proc/logout.php\"'>LogOut</button>";
                 
             }else {
-                echo "<button class='btn btn-light form-control me-1' type='button' onclick='window.location.href = \"./subir_actividad.php\"><i class='fa-solid fa-arrow-up-from-bracket'></i></button>";
+                echo "<button class='btn btn-light form-control me-1' type='button' onclick='window.location.href = \"./subir_actividad.php\"'><i class='fa-solid fa-arrow-up-from-bracket'></i></button>";
                 echo "<button class='btn btn-light form-control ms-1' type='button' onclick='window.location.href = \"./login.php\"'>ACCEDER</button>";
                 
             }
@@ -99,7 +99,11 @@
                 echo"</div>";
                 echo "<div class='column2 image'>";
                 echo "<img src='".$ruta."' alt='".$actividad['nombre_act']."'><br><br>";
-                echo "      <button class='btn btn-light m-1' type='submit' onClick='like(".$actividad['id'].", ".$_SESSION['id_usuario'].")' id='act-".$actividad['id']."-like-bttn'>$likes_actividad <i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";
+                if (isset($_SESSION['nombre_usuario'])) {
+                    echo "      <button class='btn btn-light m-1' type='submit' onClick='like(".$actividad['id'].", ".$_SESSION['id_usuario'].")' id='act-".$actividad['id']."-like-bttn'>$likes_actividad <i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";
+                } else {
+                    echo "      <button class='btn btn-light m-1' type='submit' onClick='window.location.href = \"./login.php\"' id='act-".$actividad['id']."-like-bttn'>$likes_actividad <i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";
+                }
                 echo "</div>";
                 echo "</div>";
                 

@@ -66,7 +66,7 @@ if (isset($_SESSION['id_usuario'])) {
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active disabled" aria-current="page" href="./actividades.html">Actividades</a>
+                    <a class="nav-link" aria-current="page" href="./actividades.php">Actividades</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -94,7 +94,7 @@ if (isset($_SESSION['id_usuario'])) {
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active disabled" aria-current="page" href="./actividades.html">Actividades</a>
+                    <a class="nav-link" aria-current="page" href="./actividades.php">Actividades</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -175,7 +175,7 @@ if (isset($_SESSION['id_usuario'])) {
                 $auth_request = mysqli_query($conexion, $auth_query);
                 $author = mysqli_fetch_array($auth_request);
                 // QUERY DE LOS LIKES DE LA ACTIVIDAD
-                
+
                 $likes_query = "SELECT count(id) as 'likes' FROM tbl_actividad_gustada WHERE id_actividad=".$actividad['id'].";";
                 $likes_request = mysqli_query($conexion, $likes_query);
                 $likes_actividad = mysqli_fetch_array($likes_request)['likes']; 

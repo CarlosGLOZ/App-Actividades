@@ -33,7 +33,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="./actividades.php">Actividades</a>
+                            <a class="nav-link" aria-current="page" href="./actividades.php">Actividades</a>
                         </li>
                     </ul>
                     <form class="d-flex">
@@ -116,13 +116,13 @@
 <?php
 // INFORMAR AL USUARIO DE ERRORES DE VALIDACIÓN
 if (isset($_GET['val']) && $_GET['val']=="\"img_error\"") {
-    echo "<script>alert('error de imagen. El tamaño, resoluzión o formato pueden ser incorrectos')</script>";
+    echo "<script>alert('error de imagen. El tamaño, resolución o formato pueden ser incorrectos')</script>";
 }elseif (isset($_GET['val']) && $_GET['val']=="\"insert_error\"") {
     echo "<script>alert('error con la insercción en la base de datos')</script>";
 }elseif (isset($_GET['val']) && $_GET['val']=="\"upload_error\"") {
-    echo "<script>alert('error coon la imagen y la base de datos')</script>";
+    echo "<script>alert('error al subir la imagen')</script>";
 }elseif (isset($_GET['val']) && $_GET['val']=="\"field_error\"") {
-    echo "<script>alert('comprueba que todos los campos etan rellenados')</script>";
+    echo "<script>alert('comprueba que todos los campos estan rellenados')</script>";
 }
 ?>
 

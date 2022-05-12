@@ -28,12 +28,7 @@
         // recogida de las actividades a mostrar (solo 5)
         require "../BBDD/conexion.php";
         // echo  $_SERVER['SERVER_NAME'];
-        if (isset($_GET['tema_actividad'])) {
-            $filtro = $_GET['tema_actividad'];
-            $act_query_byFav = "SELECT * FROM tbl_actividad WHERE tema_act = '{$filtro}' and visibilidad_act = 'publica' ORDER BY favs_act DESC LIMIT 5;";
-        } else {
-            $act_query_byFav = "SELECT * FROM tbl_actividad WHERE visibilidad_act = 'publica' ORDER BY favs_act DESC LIMIT 5;";
-        }
+        $act_query_byFav = "SELECT * FROM tbl_actividad WHERE visibilidad_act = 'publica' ORDER BY favs_act DESC LIMIT 5;";
         $act_request_byFav = mysqli_query($conexion, $act_query_byFav);
 
         // procesar la ruta absoluta
@@ -84,6 +79,7 @@
 
                     // ITERAR SOBRE CADA ACTIVIDAD DEVUELTA POR LA QUERY Y MOSTRAR SUS DATOS
                     foreach ($act_request_byFav as $actividad) {
+                        
                         $ruta = $actividad['foto_act'];
 
                         $auth_query = "SELECT * FROM tbl_usuario WHERE id=".$actividad['autor_act'];
@@ -124,7 +120,12 @@
             <?php 
 
                 // RECOGER TODAS LAS ACTIVIDADES PÚBLICAS
-                $act_query_byDate = "SELECT * FROM tbl_actividad WHERE visibilidad_act = 'publica' ORDER BY fecha_public_act DESC;";
+                if (isset($_GET['tema_actividad'])) {
+                    $filtro = $_GET['tema_actividad'];
+                    $act_query_byDate = "SELECT * FROM tbl_actividad WHERE tema_act = '{$filtro}' and visibilidad_act = 'publica' ORDER BY fecha_public_act DESC LIMIT 6;";
+                } else {
+                    $act_query_byDate = "SELECT * FROM tbl_actividad WHERE visibilidad_act = 'publica' ORDER BY fecha_public_act DESC;";
+                }
                 $act_request_byDate = mysqli_query($conexion, $act_query_byDate);
 
                 foreach ($act_request_byDate as $actividad) {
