@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-05-2022 a las 19:35:51
+-- Tiempo de generación: 12-05-2022 a las 11:56:18
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 
@@ -47,11 +47,15 @@ CREATE TABLE `tbl_actividad` (
 --
 
 INSERT INTO `tbl_actividad` (`id`, `nombre_act`, `desc_act`, `foto_act`, `tema_act`, `fecha_public_act`, `visibilidad_act`, `link_act`, `autor_act`, `favs_act`) VALUES
-(34, 'test', 'test', '../img/actividades/34.png', 'matematicas', '2022-05-11 16:44:26', 'publica', '../view/actividad.php?act=34', 1, 1),
-(35, 'danny', 'Los hombres llevan habitando el planeta Tierra desde tiempos immemorables', '../img/actividades/35.png', 'informatica', '2022-05-11 19:02:28', 'publica', '../view/actividad.php?act=35', 6, 0),
+(34, 'test', 'test', '../img/actividades/34.png', 'matematicas', '2022-05-11 16:44:26', 'publica', '../view/actividad.php?act=34', 1, 0),
+(35, 'danny', 'Los hombres llevan habitando el planeta Tierra desde tiempos immemorables', '../img/actividades/35.png', 'informatica', '2022-05-11 19:02:28', 'publica', '../view/actividad.php?act=35', 6, 2),
 (36, 'p', 'p', '../img/actividades/36.png', 'matematicas', '2022-05-11 19:02:47', 'publica', '../view/actividad.php?act=36', 6, 0),
-(37, 'Profesor Random', 'Profesor de M4 asix1', '../img/actividades/37.png', 'matematicas', '2022-05-11 19:03:35', 'publica', '../view/actividad.php?act=37', 6, 1),
-(39, 'FanArt de Danny', 'FanArt hecho por un fan de danny', '../img/actividades/38.png', 'matematicas', '2022-05-11 19:05:52', 'publica', '../view/actividad.php?act=38', 6, 1);
+(37, 'Profesor Random', 'Profesor de M4 asix1', '../img/actividades/37.png', 'matematicas', '2022-05-11 19:03:35', 'publica', '../view/actividad.php?act=37', 6, 0),
+(39, 'FanArt de Danny', 'FanArt hecho por un fan de danny', '../img/actividades/38.png', 'matematicas', '2022-05-11 19:05:52', 'publica', '../view/actividad.php?act=38', 6, 1),
+(40, 'danny', 'pablo', '../img/actividades/40.png', 'matematicas', '2022-05-11 22:01:15', 'publica', '../view/actividad.php?act=40', 6, 0),
+(41, 'FanArt de Danny', 'prueba', '../img/actividades/41.png', 'matematicas', '2022-05-11 22:05:52', 'publica', '../view/actividad.php?act=41', 6, 1),
+(42, 'p', 'p', '../img/actividades/42.png', 'matematicas', '2022-05-11 22:37:42', 'publica', '../view/actividad.php?act=42', 6, 2),
+(43, 'Actividad6', 'Actividad de Prueba6', '../img/actividades/43.png', 'informatica', '2022-05-12 11:44:54', 'publica', '../view/actividad.php?act=43', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -71,8 +75,9 @@ CREATE TABLE `tbl_actividad_gustada` (
 --
 
 INSERT INTO `tbl_actividad_gustada` (`id`, `fecha_gustada`, `id_actividad`, `id_usuario`) VALUES
-(57, '2022-05-11 19:07:17', 37, 6),
-(58, '2022-05-11 19:07:22', 39, 6);
+(225, '2022-05-12 10:32:21', 35, 1),
+(236, '2022-05-12 11:19:40', 42, 1),
+(239, '2022-05-12 11:45:03', 43, 1);
 
 -- --------------------------------------------------------
 
@@ -97,7 +102,8 @@ INSERT INTO `tbl_usuario` (`id`, `correo_usuario`, `contra_usuario`, `nombre_usu
 (3, 'test@gmail.com', 'contra3', 'test'),
 (4, 'test4@gmail.com', 'contra4', 'Test4'),
 (5, 'test5@gmail.com', 'contra4', 'test5'),
-(6, '10000524.joan23@fje.edu', '1234', 'pablo');
+(6, '10000524.joan23@fje.edu', '1234', 'pablo'),
+(10, 'dannyphantom@gmail.com', 'un10porfa', 'Danny');
 
 --
 -- Índices para tablas volcadas
@@ -131,19 +137,19 @@ ALTER TABLE `tbl_usuario`
 -- AUTO_INCREMENT de la tabla `tbl_actividad`
 --
 ALTER TABLE `tbl_actividad`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_actividad_gustada`
 --
 ALTER TABLE `tbl_actividad_gustada`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuario`
 --
 ALTER TABLE `tbl_usuario`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
