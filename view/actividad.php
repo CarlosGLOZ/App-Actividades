@@ -9,51 +9,53 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/actividad.css">
     <script src="https://kit.fontawesome.com/e0b63cee0f.js" crossorigin="anonymous"></script>
-   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../js/likeActivity.js"></script>
 </head>
 <body>
 
 <!-- nav -->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="../index.html">#AppName</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarScroll">
-                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vh;">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="./nosotros.php">Sobre nosotros</a>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">#AppName</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vh;">
+                <li class="nav-item">
+                    <a class="nav-link active" href="./nosotros.php">Sobre nosotros</a>
 
-                        </li>
+                </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link active "  href="./actividades.php">Actividades</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-                    <?php
-                    session_start();
+                <li class="nav-item">
+                    <a class="nav-link active "  href="./actividades.php">Actividades</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+            <?php
+            session_start();
 
-                    // MODIFICAR NAVBAR SEGÚN SI EL USUARIO ESTÁ LOGEADO O NO
-                    if (isset($_SESSION['nombre_usuario'])) {
-                        echo "<button class='btn btn-light form-control me-1' type='button' onclick='window.location.href = './subir_actividad.php'><i class='fa-solid fa-arrow-up-from-bracket'></i></button>";
-                        echo "<button class='btn btn-light form-control ms-1' type='button' onclick='window.location.href = './mis_actividades.php'>{$_SESSION['nombre_usuario']}</button>";
-                        
-                    }else {
-                        echo "<button class='btn btn-light form-control me-1' type='button' onclick='window.location.href = './subir_actividad.php'><i class='fa-solid fa-arrow-up-from-bracket'></i></button>";
-                        echo "<button class='btn btn-light form-control ms-1' type='button' onclick='window.location.href = './login.php'>ACCEDER</button>";
-                        
-                    }
-                   
-                    ?>
-                       
-                    </form>
-                </div>
-            </div>
-        </nav>
+            // MODIFICAR NAVBAR SEGÚN SI EL USUARIO ESTÁ LOGEADO O NO
+            if (isset($_SESSION['nombre_usuario'])) {
+                echo "<button class='btn btn-light form-control me-1' type='button' onclick='window.location.href = \"./subir_actividad.php\"'><i class='fa-solid fa-arrow-up-from-bracket'></i></button>";
+                echo "<button class='btn btn-light form-control ms-1' type='button' onclick='window.location.href = \"./mis_actividades.php\"'>{$_SESSION['nombre_usuario']}</button>";
+                echo "<button class='btn btn-light form-control ms-1' type='button' onclick='window.location.href = \"../proc/logout.php\"'>LogOut</button>";
+                
+            }else {
+                echo "<button class='btn btn-light form-control me-1' type='button' onclick='window.location.href = \"./subir_actividad.php\"><i class='fa-solid fa-arrow-up-from-bracket'></i></button>";
+                echo "<button class='btn btn-light form-control ms-1' type='button' onclick='window.location.href = \"./login.php\"'>ACCEDER</button>";
+                
+            }
+            
+            ?>
+                
+            </form>
+        </div>
+    </div>
+</nav>
 
 
     <?php
@@ -78,6 +80,10 @@
 
                 $id_autor = $author['id'];
                 $nombre_autor = $author['nombre_usuario'];
+
+                $likes_query = "SELECT count(id) as 'likes' FROM tbl_actividad_gustada WHERE id_actividad=".$actividad['id'].";";
+                $likes_request = mysqli_query($conexion, $likes_query);
+                $likes_actividad = mysqli_fetch_array($likes_request)['likes']; 
                 
                 // MOSTRAR DATOS DE LA ACTIVIDAD
                 $ruta = $actividad['foto_act'];
@@ -93,8 +99,8 @@
                 echo"</div>";
                 echo "<div class='column2 image'>";
                 echo "<img src='".$ruta."' alt='".$actividad['nombre_act']."'><br><br>";
+                echo "      <button class='btn btn-light m-1' type='submit' onClick='like(".$actividad['id'].", ".$_SESSION['id_usuario'].")' id='act-".$actividad['id']."-like-bttn'>$likes_actividad <i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";
                 echo "</div>";
-                
                 echo "</div>";
                 
             } else {

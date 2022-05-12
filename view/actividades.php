@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../css/actividades.css"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../js/likeActivity.js"></script>
+    <script src="../js/linkCopied.js"></script>
 
 </head>
 
@@ -23,8 +24,10 @@
 
     <!-- SI EL USUARIO NO ESTÁ LOGEADO -->
     <?php
+
         // recogida de las actividades a mostrar (solo 5)
         require "../BBDD/conexion.php";
+        // echo  $_SERVER['SERVER_NAME'];
         if (isset($_GET['tema_actividad'])) {
             $filtro = $_GET['tema_actividad'];
             $act_query_byFav = "SELECT * FROM tbl_actividad WHERE tema_act = '{$filtro}' and visibilidad_act = 'publica' ORDER BY favs_act DESC LIMIT 5;";
@@ -145,8 +148,9 @@
                     echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";' class='xplore-act-img'>";
                     echo "  <div  style='float: left;' class='padding-m like'>";
                     echo "      <p>".$author['nombre_usuario']."</p>";
-                    echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"{$act_link}\");'><i class='fa-solid fa-link'></i></button>";
-                    echo "      <button class='btn btn-light m-1' type='submit' onClick='window.location.href = \"./login.php\"'>$likes_actividad<i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";                  
+                    echo "      <button style='float: right;' class='btn btn-light m-1' type='submit' onClick='copyLink(\"link-".$actividad['id']."\",\"{$act_link}\");'> <i class='fa-solid fa-link'></i></button>";
+                    echo "      <button style='float: right;' class='btn btn-light m-1' type='submit' onClick='window.location.href = \"./login.php\"'>$likes_actividad<i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";                  
+                    echo "      <p id='link-".$actividad['id']."' class=hidden>copied</p>";
                     echo "  </div>";    
                     echo "</div>";
                 }
@@ -260,9 +264,10 @@
                     echo "  <h5>".$actividad['nombre_act']."</h5>";
                     echo "  <img src='{$ruta}' alt='".$actividad['nombre_act']."' onClick='window.location.href = \"{$act_link}\";' class='xplore-act-img'>";
                     echo "  <div  style='float: left;' class='padding-m like'>";
-                    echo "      <p>".$author['nombre_usuario']."</p>";
-                    echo "      <button class='btn btn-light m-1' type='submit' onClick='navigator.clipboard.writeText(\"{$act_link}\");'><i class='fa-solid fa-link'></i></button>";
-                    echo "      <button class='btn btn-light m-1' type='submit' onClick='like(".$actividad['id'].", ".$_SESSION['id_usuario'].")' id='act-".$actividad['id']."-like-bttn'>$likes_actividad <i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";
+                    echo "      <p class=author>".$author['nombre_usuario']."</p>";
+                    echo "      <button style='float: right;' class='btn btn-light m-1' type='submit' onClick='copyLink(\"link-".$actividad['id']."\",\"{$act_link}\");'><i class='fa-solid fa-link'></i></button>";
+                    echo "      <button style='float: right;' class='btn btn-light m-1' type='submit' onClick='like(".$actividad['id'].", ".$_SESSION['id_usuario'].")' id='act-".$actividad['id']."-like-bttn'>$likes_actividad <i class='fa-solid fa-heart' id='act-".$actividad['id']."-like-icon'></i></button>";
+                    echo "      <p id='link-".$actividad['id']."' class=hidden>copied</p>";
                     echo "  </div>";    
                     echo "</div>";
                 }
